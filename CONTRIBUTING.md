@@ -149,7 +149,7 @@ from the main (upstream) repository:
     
 ## <a name="building-docker"></a>Building a Docker Image
 
-To build a Docker image of IBeam, you first need to ensure the CP Gateway is available in the `./copy_cache/clientportal.gw` directory.
+To build a Docker image of IBeam, you first need to ensure the CP Gateway is available in the `./docker-files/clientportal.gw` directory.
 
 ### <a name="local-builds"></a>Building Single-Platform Images for Development
 

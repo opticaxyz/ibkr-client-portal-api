@@ -24,8 +24,8 @@ RUN \
     # Install apt packages
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y default-jre dbus-x11 xfonts-base xfonts-100dpi \
-        xfonts-75dpi xfonts-cyrillic xfonts-scalable xorg xvfb gtk2-engines-pixbuf nano curl iputils-ping \
-        chromium chromium-driver build-essential && \
+    xfonts-75dpi xfonts-cyrillic xfonts-scalable xorg xvfb gtk2-engines-pixbuf nano curl iputils-ping \
+    chromium chromium-driver build-essential && \
     # Install python packages
     pip install --upgrade pip setuptools wheel && \
     pip install -r /srv/requirements.txt && \
@@ -33,7 +33,7 @@ RUN \
     apt-get purge -y --auto-remove build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-COPY copy_cache/clientportal.gw $IBEAM_GATEWAY_DIR
+COPY docker-files/clientportal.gw $IBEAM_GATEWAY_DIR
 COPY ibeam $SRC_ROOT
 
 RUN \
