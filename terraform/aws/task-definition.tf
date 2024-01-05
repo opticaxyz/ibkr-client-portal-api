@@ -1,7 +1,7 @@
 resource "aws_ecs_task_definition" "ibkr-client-portal-api" {
   family             = "${terraform.workspace}-${local.service-name}"
-  execution_role_arn = aws_iam_role.ibkr-client-portal-api.arn
-  task_role_arn      = aws_iam_role.ibkr-client-portal-api.arn
+  execution_role_arn = aws_iam_role.ibkr-client-portal-api-role.arn
+  task_role_arn      = aws_iam_role.ibkr-client-portal-api-role.arn
 
   container_definitions = jsonencode([
     module.server-container-definition.json_map_object,
