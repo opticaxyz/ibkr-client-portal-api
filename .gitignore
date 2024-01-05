@@ -5,6 +5,8 @@ ibeam.egg-info
 /dev
 __pycache__
 .idea
+venv
 .env.*
 # Terraform
 .terraform
+scratch*
