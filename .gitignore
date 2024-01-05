@@ -6,3 +6,5 @@ ibeam.egg-info
 __pycache__
 .idea
 .env.*
+# Terraform
+.terraform
