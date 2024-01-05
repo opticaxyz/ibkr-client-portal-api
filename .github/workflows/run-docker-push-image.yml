@@ -1,0 +1,53 @@
+name: Deploy Docker Image
+
+on:
+  workflow_run:
+    workflows: ["Run Pytest"]
+    branches: [main]
+    types: 
+      - completed
+
+env:
+  AWS_DEFAULT_REGION: us-west-2
+  ECR_REPOSITORY: ibkr-client-portal-api
+
+jobs:
+  build-push-image:
+    runs-on: ubuntu-latest
+
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Ref: https://github.com/marketplace/actions/short-sha
+      - name: short-sha
+        uses: benjlevesque/short-sha@v1.2
+        id: short-sha
+
+      # Ref: https://github.com/aws-actions/configure-aws-credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::445123149871:role/optica-github-actions
+          role-session-name: ibkr-client-portal-api-github-btp
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Ref: https://github.com/aws-actions/amazon-ecr-login
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Ref: https://github.com/marketplace/actions/build-and-push-docker-images
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ steps.short-sha.outputs.sha }}            
