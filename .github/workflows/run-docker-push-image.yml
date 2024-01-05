@@ -1,11 +1,9 @@
 name: Deploy Docker Image
 
 on:
-  workflow_run:
-    workflows: ["Run Pytest"]
-    branches: [main]
-    types: 
-      - completed
+  push:
+    branches: [ "main" ]
+  pull_request:
 
 env:
   AWS_DEFAULT_REGION: us-west-2
