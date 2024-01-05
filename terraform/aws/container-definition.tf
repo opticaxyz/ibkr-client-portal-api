@@ -41,7 +41,7 @@ module "server-container-definition" {
     "OPTICA_ENV" : terraform.workspace,
     "IBEAM_REQUEST_RETRIES" : "5",
     # Ref: https://github.com/Voyz/ibeam/issues/152#issuecomment-1804518318
-    "IBEAM_MAX_STATUS_CHECK_RETRIES" : "15"
+    "IBEAM_MAX_STATUS_CHECK_RETRIES" : "120"
   }
   mount_points = [] # default
   port_mappings = [
