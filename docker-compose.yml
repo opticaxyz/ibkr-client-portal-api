@@ -1,11 +1,18 @@
 version: "2.1"
 
 services:
-  ibeam:
-    image: voyz/ibeam
+  ibkr-client-portal-api:
+    image: ibkr-client-portal-api:latest
+    platform: linux/amd64
+    # platform: linux/arm64
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - "ibkr-client-portal-api:latest"
     container_name: ibeam
     env_file:
-      - env.list
+      - .env.master.paper
     ports:
       - 127.0.0.1:5000:5000
       - 127.0.0.1:5001:5001
